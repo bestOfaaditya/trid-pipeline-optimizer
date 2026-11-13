@@ -25,10 +25,8 @@ from ortools.sat.python import cp_model
 
 from pipeline import (STAGES, STAGE_INDEX, PROCESSOR, UNDERWRITER, CLOSER,
                       EXTERNAL, HOURS_PER_DAY, LE_DEADLINE_HOURS,
-                      CD_WAITING_HOURS)
-
-TARDINESS_WEIGHT_PER_HOUR = 5   # $ proxy per business hour past target close
-EARLINESS_WEIGHT = 1            # tiny pressure to finish files sooner
+                      CD_WAITING_HOURS, CENTS, TARDINESS_CENTS_PER_HOUR,
+                      EARLINESS_CENTS_PER_HOUR)
 
 
 def solve_schedule(loans, n_processors=3, n_underwriters=2, n_closers=2,
@@ -107,20 +105,27 @@ def solve_schedule(loans, n_processors=3, n_underwriters=2, n_closers=2,
     for loan in loans:
         funded = tasks[(loan.loan_id, "closing_funding")]["end"]
 
-        # rate-lock extension: hours past lock expiry, costed per business day
+        # Rate-lock extension: hours past lock expiry, priced in integer
+        # CENTS PER HOUR. The fee already scales with the loan amount
+        # (basis points of principal), so this term is value-weighted:
+        # a $900k loan costs ~3x a $300k loan per late hour, and the solver
+        # will sacrifice the cheap loan first when capacity runs short.
+        # Cents (not dollars) keeps loans with similar fees distinguishable
+        # instead of collapsing to the same integer after division by 8.
         late = model.NewIntVar(0, horizon, f"lock_late_{loan.loan_id}")
         model.AddMaxEquality(late, [funded - loan.lock_expiry, 0])
         lock_tardiness[loan.loan_id] = late
-        cost_per_hour = max(1, loan.lock_ext_cost_per_day // HOURS_PER_DAY)
-        objective_terms.append(late * cost_per_hour)
+        cents_per_hour = max(
+            1, round(loan.lock_ext_cost_per_day * CENTS / HOURS_PER_DAY))
+        objective_terms.append(late * cents_per_hour)
 
-        # target-close tardiness
+        # target-close tardiness: broken promise to the borrower
         tardy = model.NewIntVar(0, horizon, f"tardy_{loan.loan_id}")
         model.AddMaxEquality(tardy, [funded - loan.target_close, 0])
-        objective_terms.append(tardy * TARDINESS_WEIGHT_PER_HOUR)
+        objective_terms.append(tardy * TARDINESS_CENTS_PER_HOUR)
 
-        # gentle earliness pressure
-        objective_terms.append(funded * EARLINESS_WEIGHT)
+        # gentle earliness pressure (tie-breaker only)
+        objective_terms.append(funded * EARLINESS_CENTS_PER_HOUR)
 
     model.Minimize(sum(objective_terms))
 
@@ -136,7 +141,8 @@ def solve_schedule(loans, n_processors=3, n_underwriters=2, n_closers=2,
 
     if verbose:
         print(f"Solver status : {solver.StatusName(status)}")
-        print(f"Objective     : {solver.ObjectiveValue():,.0f}")
+        print(f"Objective     : {solver.ObjectiveValue():,.0f} cents "
+              f"(~${solver.ObjectiveValue() / 100:,.0f} incl. soft terms)")
         print(f"Wall time     : {solver.WallTime():.1f}s")
 
     # ---- extract schedule --------------------------------------------------
