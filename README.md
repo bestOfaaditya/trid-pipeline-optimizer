@@ -1,7 +1,5 @@
 # TRID-Aware Mortgage Pipeline Scheduler
 
-[![tests](https://github.com/bestOfaaditya/trid-pipeline-optimizer/actions/workflows/tests.yml/badge.svg)](https://github.com/bestOfaaditya/trid-pipeline-optimizer/actions/workflows/tests.yml)
-
 A constraint programming (CP-SAT) scheduler for a mortgage lender's in-flight loans. TRID disclosure deadlines are hard constraints and rate-lock extension fees are the cost being minimized. A FIFO scheduler is included as the baseline to compare against.
 
 ## The problem

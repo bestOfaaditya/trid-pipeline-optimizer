@@ -8,7 +8,7 @@ Repository hygiene. No change to the model or its results.
 
 - `src/validate.py` (new): checks a finished schedule against every rule independently of the scheduler that built it.
 - `tests/` (new): generator, FIFO baseline, metrics and validator tests, plus CP-SAT tests that are skipped without OR-Tools.
-- `.github/workflows/tests.yml` (new): runs the tests and one small end-to-end solve on every push and pull request.
+- `.github/workflows/tests.yml` (new): runs the tests and one small end-to-end solve. Manual trigger for now.
 - `.gitignore`: ignores `output/` and `data/` entirely. Before, only `output/*.png` and `output/*.csv` were ignored, and README charts had nowhere tracked to live.
 - `requirements.txt`: upper bounds on OR-Tools and matplotlib. `requirements-dev.txt` adds pytest.
 - `README.md`: results from two runs, tests, limitations.
