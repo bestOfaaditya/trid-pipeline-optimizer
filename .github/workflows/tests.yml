@@ -1,9 +1,9 @@
 name: tests
 
+# Manual trigger only for now. Switch back to push / pull_request once
+# GitHub Actions is available on this account.
 on:
-  push:
-    branches: [main]
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   pytest:
