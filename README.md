@@ -38,6 +38,10 @@ intake -> LE prep --+-- doc collection -> initial UW -> conditions --+
 
 Time unit is one business hour, 8 hours to a business day.
 
+### Loan size
+
+Lock extensions are priced as basis points of the loan amount per day (0.75 to 2.0 bps), not as a flat fee. A 900k loan costs about 3x what a 300k loan costs for each late day at the same rate, so when there is not enough capacity the solver lets the small loans slip first. FIFO never looks at cost, so loan size has no effect on it. The metric that shows this is the average size of the loans that went past their lock, compared with the average loan in the book.
+
 ## Run it
 
 ```bash

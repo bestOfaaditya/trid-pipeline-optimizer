@@ -22,6 +22,8 @@ def compute_metrics(schedule, loans):
     le_violations = 0
     cycle_times = []
     per_loan = []
+    principal_past_lock = 0     # $ of loan value that blew its lock
+    total_principal = sum(l.principal for l in loans)
 
     for lid, loan in by_loan.items():
         f = funded[lid]
@@ -35,6 +37,7 @@ def compute_metrics(schedule, loans):
         total_ext_days += late_days
         if late_days > 0:
             loans_past_lock += 1
+            principal_past_lock += loan.principal
         if f > loan.target_close:
             loans_past_target += 1
         if le_end[lid] > loan.app_time + LE_DEADLINE_HOURS:
@@ -43,11 +46,20 @@ def compute_metrics(schedule, loans):
         per_loan.append({
             "loan_id": lid, "borrower": loan.borrower,
             "type": loan.loan_type,
+            "principal": loan.principal,
+            "fee_per_day": loan.lock_ext_cost_per_day,
             "cycle_days": round(cycle_days, 1),
             "lock_ext_days": late_days,
             "lock_ext_cost": ext_cost,
             "past_target": f > loan.target_close,
         })
+
+    # Average size of a sacrificed loan vs the book average: the tell for
+    # whether a scheduler is value-aware. A value-blind scheduler sacrifices
+    # loans at random with respect to size, so this ratio sits near 1.0.
+    avg_book = total_principal / len(loans)
+    avg_sacrificed = (principal_past_lock / loans_past_lock
+                      if loans_past_lock else 0)
 
     return {
         "total_lock_extension_cost": total_ext_cost,
@@ -57,6 +69,9 @@ def compute_metrics(schedule, loans):
         "trid_le_violations": le_violations,
         "avg_cycle_days": round(sum(cycle_times) / len(cycle_times), 1),
         "max_cycle_days": round(max(cycle_times), 1),
+        "principal_past_lock": principal_past_lock,
+        "avg_sacrificed_principal": round(avg_sacrificed),
+        "avg_book_principal": round(avg_book),
         "per_loan": per_loan,
     }
 
@@ -75,6 +90,11 @@ def print_comparison(base_m, opt_m):
          opt_m['trid_le_violations']),
         ("Avg cycle time (biz days)", base_m['avg_cycle_days'],
          opt_m['avg_cycle_days']),
+        ("Loan value past lock", f"${base_m['principal_past_lock']:,}",
+         f"${opt_m['principal_past_lock']:,}"),
+        ("Avg size of sacrificed loan",
+         f"${base_m['avg_sacrificed_principal']:,}",
+         f"${opt_m['avg_sacrificed_principal']:,}"),
     ]
     w = 34
     print(f"\n{'Metric':<{w}}{'FIFO baseline':>16}{'CP-SAT':>12}")
