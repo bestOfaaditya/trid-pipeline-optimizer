@@ -1,4 +1,10 @@
-output/*.png
-output/*.csv
+# written by every run (charts for the README live in docs/)
+output/
+data/
+
+# python
 __pycache__/
 *.pyc
+.pytest_cache/
+.venv/
+venv/
