@@ -104,10 +104,3 @@ def print_comparison(base_m, opt_m):
     saved = base_m['total_lock_extension_cost'] - opt_m['total_lock_extension_cost']
     print("-" * (w + 28))
     print(f"{'Lock-extension $ saved':<{w}}{'':>16}{'$' + format(saved, ','):>12}")
-
-    # markdown version, ready to paste into the README
-    print("\nMarkdown (paste into README):\n")
-    print("| Metric | FIFO baseline | CP-SAT optimizer |")
-    print("|---|---|---|")
-    for name, b, o in rows:
-        print(f"| {name} | {b} | {o} |")
