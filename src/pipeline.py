@@ -92,3 +92,22 @@ CD_WAITING_DAYS = 3
 
 LE_DEADLINE_HOURS = LE_DEADLINE_DAYS * HOURS_PER_DAY
 CD_WAITING_HOURS = CD_WAITING_DAYS * HOURS_PER_DAY
+
+# --- Rate-lock extension pricing -------------------------------------------
+# Lenders price lock extensions as basis points of the LOAN AMOUNT per day,
+# so a larger loan is automatically more expensive to run late. Published
+# ranges cluster around 1-3 bps/day for short extensions; longer extensions
+# amortise cheaper (a 15-day extension quoted at 10-12 bps works out near
+# 0.7-0.8 bps/day). We sample 0.75-2.0 bps/day to span that spread.
+#
+# This is what makes the objective VALUE-AWARE: cost scales linearly with
+# principal, so protecting a $900k loan is worth ~3x protecting a $300k loan
+# at the same bps. No separate multiplier is needed.
+BPS_PER_DAY_CHOICES = (0.75, 1.0, 1.25, 1.5, 1.75, 2.0)
+BASIS_POINT = 10_000            # 1 bp = 1/10,000 of the loan amount
+
+# The solver works in INTEGER cents/hour so small fee differences between
+# loans are not rounded away (CP-SAT cannot multiply a variable by 2.7).
+CENTS = 100
+TARDINESS_CENTS_PER_HOUR = 100  # $1/hr: missing the promised close date
+EARLINESS_CENTS_PER_HOUR = 1    # tie-breaker: keep the pipeline moving

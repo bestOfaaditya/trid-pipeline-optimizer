@@ -10,7 +10,7 @@ import json
 import random
 from dataclasses import dataclass, asdict
 
-from pipeline import STAGES, HOURS_PER_DAY
+from pipeline import (STAGES, HOURS_PER_DAY, BPS_PER_DAY_CHOICES, BASIS_POINT)
 
 
 @dataclass
@@ -18,10 +18,12 @@ class Loan:
     loan_id: str
     borrower: str
     loan_type: str          # "purchase" | "refi"
+    principal: int          # loan amount in whole dollars
     app_time: int           # business hour the application was received
     lock_expiry: int        # business hour the rate lock expires
     target_close: int       # contractual / promised close (business hour)
-    lock_ext_cost_per_day: int  # $ per business day of lock extension
+    bps_per_day: float      # lock extension price, basis points of principal
+    lock_ext_cost_per_day: int  # $ per business day = principal * bps / 10000
     durations: dict         # stage_key -> hours for THIS loan
 
 
@@ -51,19 +53,27 @@ def generate_portfolio(n_loans: int = 14, seed: int = 42) -> list:
             # purchase contracts: 30-40 business day close, 30-35 day locks
             target_close = app_time + rng.randint(30, 40) * HOURS_PER_DAY
             lock_expiry = app_time + rng.randint(28, 35) * HOURS_PER_DAY
-            ext_cost = rng.choice([250, 375, 500])   # $/day extension fee
+            # purchases skew larger; round to the nearest $5k like a real file
+            principal = rng.randrange(220_000, 900_001, 5_000)
         else:
             target_close = app_time + rng.randint(35, 50) * HOURS_PER_DAY
             lock_expiry = app_time + rng.randint(32, 45) * HOURS_PER_DAY
-            ext_cost = rng.choice([150, 250])
+            principal = rng.randrange(150_000, 700_001, 5_000)
+
+        # Lock extension priced off the LOAN AMOUNT, not a flat fee.
+        # This is the value-weighting: a big loan costs more per late day.
+        bps = rng.choice(BPS_PER_DAY_CHOICES)
+        ext_cost = int(round(principal * bps / BASIS_POINT))
 
         loans.append(Loan(
             loan_id=f"L{i+1:03d}",
             borrower=f"{rng.choice(FIRST_NAMES)} {rng.choice(LAST_NAMES)}",
             loan_type=loan_type,
+            principal=principal,
             app_time=app_time,
             lock_expiry=lock_expiry,
             target_close=target_close,
+            bps_per_day=bps,
             lock_ext_cost_per_day=ext_cost,
             durations=durations,
         ))
