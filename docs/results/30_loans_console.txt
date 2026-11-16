@@ -1,0 +1,23 @@
+$ python src/main.py --loans 30 --underwriters 1 --time-limit 120
+Portfolio: 30 loans (17 purchase, 13 refi)
+Staff: 3 processors, 1 underwriters, 2 closers
+
+Gantt saved -> output/gantt_fifo.png
+Solver status : FEASIBLE
+Objective     : 218,058 cents (~$2,181 incl. soft terms)
+Wall time     : 120.1s
+Gantt saved -> output/gantt_optimized.png
+Schedule CSV -> output/schedule_optimized.csv
+
+Metric                               FIFO baseline      CP-SAT
+--------------------------------------------------------------
+Rate-lock extension cost                   $57,379      $1,936
+Lock extension days                            853          65
+Loans blowing their lock                        22           8
+Loans past target close                         21           4
+TRID LE deadline misses                         28           0
+Avg cycle time (biz days)                     60.1        30.8
+Loan value past lock                   $11,595,000  $2,330,000
+Avg size of sacrificed loan               $527,045    $291,250
+--------------------------------------------------------------
+Lock-extension $ saved                                 $55,443

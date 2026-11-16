@@ -1,0 +1,155 @@
+loan_id,borrower,loan_type,stage,stage_name,resource,start,end
+L001,Noah Kim,refi,intake,Application intake & setup,processor,3,7
+L001,Noah Kim,refi,le_prep,Loan Estimate prep & delivery,processor,7,10
+L001,Noah Kim,refi,doc_collect,Borrower document collection,processor,11,26
+L001,Noah Kim,refi,order_appraisal,Order appraisal,processor,10,11
+L001,Noah Kim,refi,appraisal_turn,Appraisal turn-time (vendor),external,11,59
+L001,Noah Kim,refi,title_search,Title search & commitment (vendor),external,27,57
+L001,Noah Kim,refi,initial_uw,Initial underwriting,UW-2,26,34
+L001,Noah Kim,refi,conditions,Conditions collection & review,processor,40,49
+L001,Noah Kim,refi,final_uw,Final underwriting / clear to close,UW-2,59,65
+L001,Noah Kim,refi,cd_prep,Closing Disclosure prep & delivery,closer,65,67
+L001,Noah Kim,refi,closing_funding,Closing & funding,closer,91,94
+L002,Sofia Nguyen,purchase,intake,Application intake & setup,processor,107,111
+L002,Sofia Nguyen,purchase,le_prep,Loan Estimate prep & delivery,processor,111,115
+L002,Sofia Nguyen,purchase,doc_collect,Borrower document collection,processor,158,179
+L002,Sofia Nguyen,purchase,order_appraisal,Order appraisal,processor,134,135
+L002,Sofia Nguyen,purchase,appraisal_turn,Appraisal turn-time (vendor),external,135,203
+L002,Sofia Nguyen,purchase,title_search,Title search & commitment (vendor),external,115,156
+L002,Sofia Nguyen,purchase,initial_uw,Initial underwriting,UW-2,179,183
+L002,Sofia Nguyen,purchase,conditions,Conditions collection & review,processor,183,203
+L002,Sofia Nguyen,purchase,final_uw,Final underwriting / clear to close,UW-2,203,207
+L002,Sofia Nguyen,purchase,cd_prep,Closing Disclosure prep & delivery,closer,207,211
+L002,Sofia Nguyen,purchase,closing_funding,Closing & funding,closer,235,239
+L003,Liam Rossi,purchase,intake,Application intake & setup,processor,12,15
+L003,Liam Rossi,purchase,le_prep,Loan Estimate prep & delivery,processor,15,18
+L003,Liam Rossi,purchase,doc_collect,Borrower document collection,processor,48,64
+L003,Liam Rossi,purchase,order_appraisal,Order appraisal,processor,18,19
+L003,Liam Rossi,purchase,appraisal_turn,Appraisal turn-time (vendor),external,19,88
+L003,Liam Rossi,purchase,title_search,Title search & commitment (vendor),external,36,67
+L003,Liam Rossi,purchase,initial_uw,Initial underwriting,UW-2,65,72
+L003,Liam Rossi,purchase,conditions,Conditions collection & review,processor,79,88
+L003,Liam Rossi,purchase,final_uw,Final underwriting / clear to close,UW-2,88,93
+L003,Liam Rossi,purchase,cd_prep,Closing Disclosure prep & delivery,closer,93,97
+L003,Liam Rossi,purchase,closing_funding,Closing & funding,closer,121,126
+L004,Maya Walsh,refi,intake,Application intake & setup,processor,33,35
+L004,Maya Walsh,refi,le_prep,Loan Estimate prep & delivery,processor,35,38
+L004,Maya Walsh,refi,doc_collect,Borrower document collection,processor,98,114
+L004,Maya Walsh,refi,order_appraisal,Order appraisal,processor,38,40
+L004,Maya Walsh,refi,appraisal_turn,Appraisal turn-time (vendor),external,51,131
+L004,Maya Walsh,refi,title_search,Title search & commitment (vendor),external,53,100
+L004,Maya Walsh,refi,initial_uw,Initial underwriting,UW-1,114,119
+L004,Maya Walsh,refi,conditions,Conditions collection & review,processor,119,132
+L004,Maya Walsh,refi,final_uw,Final underwriting / clear to close,UW-1,132,137
+L004,Maya Walsh,refi,cd_prep,Closing Disclosure prep & delivery,closer,137,139
+L004,Maya Walsh,refi,closing_funding,Closing & funding,closer,163,168
+L005,Nina Garcia,refi,intake,Application intake & setup,processor,74,78
+L005,Nina Garcia,refi,le_prep,Loan Estimate prep & delivery,processor,78,80
+L005,Nina Garcia,refi,doc_collect,Borrower document collection,processor,114,127
+L005,Nina Garcia,refi,order_appraisal,Order appraisal,processor,80,82
+L005,Nina Garcia,refi,appraisal_turn,Appraisal turn-time (vendor),external,82,146
+L005,Nina Garcia,refi,title_search,Title search & commitment (vendor),external,92,133
+L005,Nina Garcia,refi,initial_uw,Initial underwriting,UW-2,127,135
+L005,Nina Garcia,refi,conditions,Conditions collection & review,processor,135,146
+L005,Nina Garcia,refi,final_uw,Final underwriting / clear to close,UW-2,146,151
+L005,Nina Garcia,refi,cd_prep,Closing Disclosure prep & delivery,closer,151,153
+L005,Nina Garcia,refi,closing_funding,Closing & funding,closer,177,180
+L006,Grace Tanaka,purchase,intake,Application intake & setup,processor,85,89
+L006,Grace Tanaka,purchase,le_prep,Loan Estimate prep & delivery,processor,89,92
+L006,Grace Tanaka,purchase,doc_collect,Borrower document collection,processor,127,141
+L006,Grace Tanaka,purchase,order_appraisal,Order appraisal,processor,92,94
+L006,Grace Tanaka,purchase,appraisal_turn,Appraisal turn-time (vendor),external,94,159
+L006,Grace Tanaka,purchase,title_search,Title search & commitment (vendor),external,93,146
+L006,Grace Tanaka,purchase,initial_uw,Initial underwriting,UW-1,141,146
+L006,Grace Tanaka,purchase,conditions,Conditions collection & review,processor,146,158
+L006,Grace Tanaka,purchase,final_uw,Final underwriting / clear to close,UW-1,159,163
+L006,Grace Tanaka,purchase,cd_prep,Closing Disclosure prep & delivery,closer,163,165
+L006,Grace Tanaka,purchase,closing_funding,Closing & funding,closer,189,194
+L007,Nina Novak,purchase,intake,Application intake & setup,processor,19,23
+L007,Nina Novak,purchase,le_prep,Loan Estimate prep & delivery,processor,23,26
+L007,Nina Novak,purchase,doc_collect,Borrower document collection,processor,33,43
+L007,Nina Novak,purchase,order_appraisal,Order appraisal,processor,26,27
+L007,Nina Novak,purchase,appraisal_turn,Appraisal turn-time (vendor),external,27,74
+L007,Nina Novak,purchase,title_search,Title search & commitment (vendor),external,39,72
+L007,Nina Novak,purchase,initial_uw,Initial underwriting,UW-2,43,48
+L007,Nina Novak,purchase,conditions,Conditions collection & review,processor,49,69
+L007,Nina Novak,purchase,final_uw,Final underwriting / clear to close,UW-2,74,80
+L007,Nina Novak,purchase,cd_prep,Closing Disclosure prep & delivery,closer,80,84
+L007,Nina Novak,purchase,closing_funding,Closing & funding,closer,108,111
+L008,Isla Nguyen,refi,intake,Application intake & setup,processor,1,5
+L008,Isla Nguyen,refi,le_prep,Loan Estimate prep & delivery,processor,5,9
+L008,Isla Nguyen,refi,doc_collect,Borrower document collection,processor,27,38
+L008,Isla Nguyen,refi,order_appraisal,Order appraisal,processor,10,12
+L008,Isla Nguyen,refi,appraisal_turn,Appraisal turn-time (vendor),external,12,73
+L008,Isla Nguyen,refi,title_search,Title search & commitment (vendor),external,25,56
+L008,Isla Nguyen,refi,initial_uw,Initial underwriting,UW-1,41,47
+L008,Isla Nguyen,refi,conditions,Conditions collection & review,processor,58,72
+L008,Isla Nguyen,refi,final_uw,Final underwriting / clear to close,UW-1,73,77
+L008,Isla Nguyen,refi,cd_prep,Closing Disclosure prep & delivery,closer,77,80
+L008,Isla Nguyen,refi,closing_funding,Closing & funding,closer,104,107
+L009,Omar Hassan,refi,intake,Application intake & setup,processor,38,42
+L009,Omar Hassan,refi,le_prep,Loan Estimate prep & delivery,processor,43,47
+L009,Omar Hassan,refi,doc_collect,Borrower document collection,processor,69,83
+L009,Omar Hassan,refi,order_appraisal,Order appraisal,processor,47,48
+L009,Omar Hassan,refi,appraisal_turn,Appraisal turn-time (vendor),external,48,111
+L009,Omar Hassan,refi,title_search,Title search & commitment (vendor),external,62,96
+L009,Omar Hassan,refi,initial_uw,Initial underwriting,UW-1,83,91
+L009,Omar Hassan,refi,conditions,Conditions collection & review,processor,91,111
+L009,Omar Hassan,refi,final_uw,Final underwriting / clear to close,UW-1,111,114
+L009,Omar Hassan,refi,cd_prep,Closing Disclosure prep & delivery,closer,114,118
+L009,Omar Hassan,refi,closing_funding,Closing & funding,closer,142,146
+L010,Fatima Rossi,purchase,intake,Application intake & setup,processor,72,74
+L010,Fatima Rossi,purchase,le_prep,Loan Estimate prep & delivery,processor,82,84
+L010,Fatima Rossi,purchase,doc_collect,Borrower document collection,processor,111,134
+L010,Fatima Rossi,purchase,order_appraisal,Order appraisal,processor,84,85
+L010,Fatima Rossi,purchase,appraisal_turn,Appraisal turn-time (vendor),external,86,160
+L010,Fatima Rossi,purchase,title_search,Title search & commitment (vendor),external,96,128
+L010,Fatima Rossi,purchase,initial_uw,Initial underwriting,UW-2,135,140
+L010,Fatima Rossi,purchase,conditions,Conditions collection & review,processor,141,159
+L010,Fatima Rossi,purchase,final_uw,Final underwriting / clear to close,UW-2,160,166
+L010,Fatima Rossi,purchase,cd_prep,Closing Disclosure prep & delivery,closer,166,170
+L010,Fatima Rossi,purchase,closing_funding,Closing & funding,closer,194,197
+L011,Maya Patel,purchase,intake,Application intake & setup,processor,94,98
+L011,Maya Patel,purchase,le_prep,Loan Estimate prep & delivery,processor,104,107
+L011,Maya Patel,purchase,doc_collect,Borrower document collection,processor,132,154
+L011,Maya Patel,purchase,order_appraisal,Order appraisal,processor,117,119
+L011,Maya Patel,purchase,appraisal_turn,Appraisal turn-time (vendor),external,121,168
+L011,Maya Patel,purchase,title_search,Title search & commitment (vendor),external,107,146
+L011,Maya Patel,purchase,initial_uw,Initial underwriting,UW-1,154,159
+L011,Maya Patel,purchase,conditions,Conditions collection & review,processor,159,168
+L011,Maya Patel,purchase,final_uw,Final underwriting / clear to close,UW-1,168,173
+L011,Maya Patel,purchase,cd_prep,Closing Disclosure prep & delivery,closer,173,175
+L011,Maya Patel,purchase,closing_funding,Closing & funding,closer,199,204
+L012,Raj Silva,purchase,intake,Application intake & setup,processor,4,7
+L012,Raj Silva,purchase,le_prep,Loan Estimate prep & delivery,processor,7,9
+L012,Raj Silva,purchase,doc_collect,Borrower document collection,processor,9,33
+L012,Raj Silva,purchase,order_appraisal,Order appraisal,processor,9,10
+L012,Raj Silva,purchase,appraisal_turn,Appraisal turn-time (vendor),external,10,67
+L012,Raj Silva,purchase,title_search,Title search & commitment (vendor),external,12,67
+L012,Raj Silva,purchase,initial_uw,Initial underwriting,UW-1,34,39
+L012,Raj Silva,purchase,conditions,Conditions collection & review,processor,42,58
+L012,Raj Silva,purchase,final_uw,Final underwriting / clear to close,UW-1,67,71
+L012,Raj Silva,purchase,cd_prep,Closing Disclosure prep & delivery,closer,71,75
+L012,Raj Silva,purchase,closing_funding,Closing & funding,closer,99,104
+L013,Tomas Ali,purchase,intake,Application intake & setup,processor,88,91
+L013,Tomas Ali,purchase,le_prep,Loan Estimate prep & delivery,processor,101,104
+L013,Tomas Ali,purchase,doc_collect,Borrower document collection,processor,154,175
+L013,Tomas Ali,purchase,order_appraisal,Order appraisal,processor,115,117
+L013,Tomas Ali,purchase,appraisal_turn,Appraisal turn-time (vendor),external,118,187
+L013,Tomas Ali,purchase,title_search,Title search & commitment (vendor),external,108,135
+L013,Tomas Ali,purchase,initial_uw,Initial underwriting,UW-1,175,179
+L013,Tomas Ali,purchase,conditions,Conditions collection & review,processor,179,187
+L013,Tomas Ali,purchase,final_uw,Final underwriting / clear to close,UW-1,187,193
+L013,Tomas Ali,purchase,cd_prep,Closing Disclosure prep & delivery,closer,193,197
+L013,Tomas Ali,purchase,closing_funding,Closing & funding,closer,221,225
+L014,Fatima Lopez,purchase,intake,Application intake & setup,processor,26,29
+L014,Fatima Lopez,purchase,le_prep,Loan Estimate prep & delivery,processor,29,32
+L014,Fatima Lopez,purchase,doc_collect,Borrower document collection,processor,64,79
+L014,Fatima Lopez,purchase,order_appraisal,Order appraisal,processor,32,33
+L014,Fatima Lopez,purchase,appraisal_turn,Appraisal turn-time (vendor),external,33,101
+L014,Fatima Lopez,purchase,title_search,Title search & commitment (vendor),external,47,77
+L014,Fatima Lopez,purchase,initial_uw,Initial underwriting,UW-1,79,83
+L014,Fatima Lopez,purchase,conditions,Conditions collection & review,processor,83,101
+L014,Fatima Lopez,purchase,final_uw,Final underwriting / clear to close,UW-1,101,104
+L014,Fatima Lopez,purchase,cd_prep,Closing Disclosure prep & delivery,closer,104,106
+L014,Fatima Lopez,purchase,closing_funding,Closing & funding,closer,130,133
