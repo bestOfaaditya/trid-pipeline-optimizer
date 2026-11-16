@@ -2,7 +2,41 @@
 
 What changed in each version, file by file. Newest first.
 
-## 0.4.0
+The dates are the days each version was written. The repository itself was put together on 2026-11-13, so the commits for 0.1.0 to 0.4.0 all carry that date.
+
+## Which version touched which file
+
+| File | 0.1.0 | 0.2.0 | 0.3.0 | 0.4.0 | 0.4.1 |
+|---|---|---|---|---|---|
+| `src/pipeline.py` | added | pricing constants, weights in cents | | | |
+| `src/generate.py` | added | principal and bps per loan | | | |
+| `src/baseline.py` | added | | | | |
+| `src/model.py` | added | lateness in cents per hour | | | |
+| `src/metrics.py` | added | loan value past lock | markdown table removed | | |
+| `src/visualize.py` | added | | legend from data, TRID markers | | vendor entry in the CP-SAT legend |
+| `src/main.py` | added | | | | |
+| `src/validate.py` | | | | added | |
+| `tests/`, `pytest.ini` | | | | added | |
+| `.github/workflows/tests.yml` | | | | added | |
+| `requirements.txt` | added | | | version bounds | |
+| `requirements-dev.txt` | | | | added | |
+| `.gitignore` | added | | | ignores `output/` and `data/` | |
+| `README.md` | added | loan size section | | results, tests, limitations | results from a saved run, charts |
+| `CHANGELOG.md` | | | | added | dates, this table |
+| `docs/` | | | | | added |
+
+`LICENSE` was added with the repository on 2026-08-04, before any of the code.
+
+## 0.4.1 (2026-11-15)
+
+Results re-run and charts added. No change to the model.
+
+- `docs/` (new): Gantt charts for both runs in the README, plus the console output and CP-SAT schedule of each, so every number there can be traced to a file.
+- `README.md`: the CP-SAT columns now come from that saved run, with the machine and package versions it ran on. The 14-loan charts are shown under the first table. The 30-loan CP-SAT figures changed slightly (the solve is time-limited), and the earlier figures are quoted next to them.
+- `src/visualize.py`: the CP-SAT chart had no legend entry for vendor time. The CP-SAT schedule labels those tasks `external`, the FIFO one `vendor`, and the legend only looked for `vendor`. Both now show as vendor.
+- `CHANGELOG.md`: dates for each version and the file table above.
+
+## 0.4.0 (2026-11-13)
 
 Repository hygiene. No change to the model or its results.
 
@@ -13,14 +47,14 @@ Repository hygiene. No change to the model or its results.
 - `requirements.txt`: upper bounds on OR-Tools and matplotlib. `requirements-dev.txt` adds pytest.
 - `README.md`: results from two runs, tests, limitations.
 
-## 0.3.0
+## 0.3.0 (2026-08-05)
 
 Chart fixes after running with 5 underwriters.
 
 - `src/visualize.py`: the colour map was hardcoded for UW-1 to UW-4, so a fifth underwriter was drawn in an unlabelled grey. Colours and legend are now built from the resources present in the schedule. Added markers for application time, the Loan Estimate deadline and late Loan Estimates, with the violation count in the title. Legend moved below the plot.
 - `src/metrics.py`: removed the second, markdown copy of the comparison table from the console output.
 
-## 0.2.0
+## 0.2.0 (2026-08-04)
 
 Loan size enters the objective.
 
@@ -32,7 +66,7 @@ Loan size enters the objective.
 
 Results from 0.1.0 do not carry over. The generator draws more random numbers per loan, so the same seed gives a different portfolio, and total fees are about an order of magnitude lower than with the flat fee.
 
-## 0.1.0
+## 0.1.0 (2026-06-10)
 
 First working version.
 

@@ -46,7 +46,7 @@ The bps range is an assumption taken from published lender guidance: 2 to 3 bps 
 
 ## Results
 
-Both runs use seed 42. The FIFO column is deterministic and is pinned by a test. The CP-SAT column comes from a time-limited solve on my laptop, so it can move a little on another machine.
+Both runs use seed 42. The FIFO column is deterministic and is pinned by a test. The CP-SAT column is from a run on my laptop on 2026-11-15 (16 logical cores, Python 3.11, OR-Tools 9.15). The solver stops at its time limit and returns the best schedule found so far, so the CP-SAT numbers can move a little between runs and machines. The console output and schedules from this run are saved in [docs/results](docs/results).
 
 ### Enough staff: 14 loans, 3 processors, 2 underwriters, 2 closers
 
@@ -61,7 +61,15 @@ python src/main.py
 | Lock extension days | 14 | 0 |
 | Loans past their lock | 3 | 0 |
 | Loans past target close | 2 | 0 |
-| Avg cycle time (business days) | 25.2 | 14.6 |
+| Avg cycle time (business days) | 25.2 | 14.5 |
+
+FIFO on these 14 loans. One row per loan. A red x is a Loan Estimate that went out late and a red triangle is the lock expiry.
+
+![FIFO schedule for 14 loans](docs/gantt_fifo_14_loans.png)
+
+CP-SAT on the same loans:
+
+![CP-SAT schedule for 14 loans](docs/gantt_cpsat_14_loans.png)
 
 ### Not enough staff: 30 loans, 1 underwriter
 
@@ -72,19 +80,23 @@ python src/main.py --loans 30 --underwriters 1 --time-limit 120
 | Metric | FIFO | CP-SAT |
 |---|---|---|
 | Loan Estimate deadline misses | 28 | 0 |
-| Rate-lock extension cost | $57,379 | $1,883 |
-| Lock extension days | 853 | 64 |
-| Loans past their lock | 22 | 7 |
-| Loans past target close | 21 | 5 |
-| Avg cycle time (business days) | 60.1 | 29.8 |
-| Loan value past lock | $11,595,000 | $2,095,000 |
-| Avg size of a loan past its lock | $527,045 | $299,286 |
+| Rate-lock extension cost | $57,379 | $1,936 |
+| Lock extension days | 853 | 65 |
+| Loans past their lock | 22 | 8 |
+| Loans past target close | 21 | 4 |
+| Avg cycle time (business days) | 60.1 | 30.8 |
+| Loan value past lock | $11,595,000 | $2,330,000 |
+| Avg size of a loan past its lock | $527,045 | $291,250 |
+
+Charts for this run: [FIFO](docs/gantt_fifo_30_loans.png), [CP-SAT](docs/gantt_cpsat_30_loans.png).
 
 ### How to read these
 
 The Loan Estimate row is a different kind of number from the rest. It is a legal deadline, and in the model it is a hard constraint, so the solver cannot return a schedule that misses it. The zero is there by construction. FIFO misses it on most loans because it does not start a file until the ones ahead of it are done, and by then the 3 days are gone.
 
-The other rows are costs. With one underwriter for 30 loans there is no schedule that funds everything on time, and CP-SAT still pays $1,883. What changes is which loans it lets slip. The average loan in that book is $521,000. The loans FIFO runs past their lock average $527,045, about the same as the book, because FIFO does not look at size. The ones CP-SAT lets slip average $299,286.
+The other rows are costs. With one underwriter for 30 loans there is no schedule that funds everything on time, and CP-SAT still pays $1,936. What changes is which loans it lets slip. The average loan in that book is $521,000. The loans FIFO runs past their lock average $527,045, about the same as the book, because FIFO does not look at size. The ones CP-SAT lets slip average $291,250.
+
+A run of the same command in August stopped at $1,883, with 7 loans past their lock averaging $299,286. So the exact figures shift from run to run, but in both runs the loans that slip are well below the book average.
 
 Most of the cycle time gain comes from ordering. CP-SAT gets the short tasks that start a long vendor wait (ordering the appraisal, sending the Loan Estimate) out early, and FIFO leaves them queued behind document collection for older files.
 
@@ -121,6 +133,7 @@ src/validate.py    independent schedule checker
 src/visualize.py   Gantt charts
 src/main.py        CLI
 tests/             pytest suite
+docs/              charts and saved run output used in this README
 ```
 
 ## Limitations
