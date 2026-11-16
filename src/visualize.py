@@ -95,9 +95,13 @@ def plot_gantt(schedule, loans, title, path):
 
     # legend built from what is actually in this schedule
     handles = []
-    for lbl in ["processor", "closer", "vendor"]:
+    for lbl in ["processor", "closer"]:
         if lbl in colors:
             handles.append(mpatches.Patch(color=colors[lbl], label=lbl))
+    # the FIFO schedule labels vendor time "vendor", the CP-SAT one "external"
+    if "vendor" in colors or "external" in colors:
+        handles.append(mpatches.Patch(color=POOL_COLORS["vendor"],
+                                      label="vendor"))
     for lbl in uw_labels:
         handles.append(mpatches.Patch(color=colors[lbl], label=lbl))
     handles += [
